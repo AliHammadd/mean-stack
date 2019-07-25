@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from "@angular/core";
+import { Component, OnInit, OnDestroy, Input } from "@angular/core";
 import { Subscription } from 'rxjs';
 
 import { Post } from "src/app/models/post.model";
@@ -10,14 +10,13 @@ import { Post } from "src/app/models/post.model";
   styleUrls: ['./post.list.css']
 })
 export class PostListComponent  {
-  posts = [
-    { title: "First Post", content: "This is the first post's content" },
-    { title: "Second Post", content: "This is the second post's content" },
-    { title: "Third Post", content: "This is the third post's content" }
-  ];
+  @Input() posts = [];
   //posts: Post[] = [];
   private postsSub: Subscription;
 
+  constructor(){
+      console.log(this.posts);
+  }
  // constructor(public postsService: PostsService) {}
 
 //   ngOnInit() {
