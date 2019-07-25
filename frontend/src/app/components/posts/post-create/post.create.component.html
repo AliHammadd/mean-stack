@@ -1,0 +1,7 @@
+<mat-card>
+    <mat-form-field>
+        <textarea matInput placeholder="Leave a comment" [(ngModel)]="enteredValue"></textarea>
+    </mat-form-field>
+    <button (click)="onAddPost()" mat-raised-button color="primary">Add</button>
+</mat-card>
+
