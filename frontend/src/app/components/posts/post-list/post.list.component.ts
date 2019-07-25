@@ -10,7 +10,7 @@ import { Post } from "src/app/models/post.model";
   styleUrls: ['./post.list.css']
 })
 export class PostListComponent  {
-  @Input() posts = [];
+  @Input() posts: Post[] = [];
   //posts: Post[] = [];
   private postsSub: Subscription;
 
