@@ -7,6 +7,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AngularMaterialModule } from './shared-modules/angular.material.module';
 import { HeaderComponent } from './components/layouts/header/header.component';
 import { PostListComponent } from './components/posts/post-list/post.list.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { PostListComponent } from './components/posts/post-list/post.list.compon
     BrowserModule,
     FormsModule,
     BrowserAnimationsModule,
-    AngularMaterialModule
+    AngularMaterialModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [  AppComponent  ]
