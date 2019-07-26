@@ -1,6 +1,16 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const mongoose = require("mongoose");
+
 const app = express();
+
+mongoose.connect('mongodb://localhost:27017/meanstack', {useNewUrlParser: true}).then(() => {
+    console.log('Connected to Database');
+}).catch(()=>{
+    console.log('Connection failed');
+});
+
+const Post = require('./models/post');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -14,29 +24,27 @@ app.use((req, res, next)=> {
 });
 
 app.post('/api/posts',(req, res, next)=> {
-    const post = req.body;
+    const post = new Post({
+        title: req.body.title,
+        content: req.body.content
+    });
+
+    post.save();
+
     res.status(201).json({
         message: 'Successfully posted',
     });
 });
 app.get('/api/posts', (req, res, next)=> {
-    const posts = [
-        {
-            id: 'abc22311',
-            title: 'First server-side post',
-            content: 'This is coming from server'
-        },
-        {
-            id: 'asf2231',
-            title: 'Second server-side post',
-            content: 'This is coming from server'
-        },
-    ];
 
-    res.status(200).json({
-        'message': 'Post send successfully',
-        'posts': posts
+    Post.find().then(documents => {
+        res.status(200).json({
+            'message': 'Post send successfully',
+            'posts': documents
+        });
     });
+    
+    
  });
 
  module.exports = app;
