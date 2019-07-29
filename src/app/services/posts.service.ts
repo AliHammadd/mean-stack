@@ -37,9 +37,19 @@ export class PostsService {
 
   addPost(title: string, content: string) {
     const post: Post = { id: null, title: title, content: content };
-    this.http.post<{ message: string }>('http://localhost:3000/api/posts', post).subscribe((response) => {
+    this.http.post<{ postId: string, message: string }>('http://localhost:3000/api/posts', post).subscribe((response) => {
+      const id = response.postId;
+      post.id = id;
       this.posts.push(post);
       this.postsUpdated.next([...this.posts]);
+    });
+  }
+
+  deletePost(postId: string){
+    this.http.delete<{ message: string }>(`http://localhost:3000/api/posts/${postId}`).subscribe((deletedPost)=>{
+        const updatedPosts = this.posts.filter((post) => post.id !== postId );
+        this.posts = updatedPosts;
+        this.postsUpdated.next([...this.posts]);
     });
   }
 

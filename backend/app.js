@@ -23,19 +23,20 @@ app.use((req, res, next)=> {
     next();
 });
 
-app.post('/api/posts',(req, res, next)=> {
+app.post('/api/posts',(req, res, next) => {
     const post = new Post({
         title: req.body.title,
         content: req.body.content
     });
 
-    post.save();
-
-    res.status(201).json({
-        message: 'Successfully posted',
+    post.save().then((createdPost) =>{
+        res.status(201).json({
+            postId: createdPost._id,
+            message: 'Successfully posted',
+        });
     });
 });
-app.get('/api/posts', (req, res, next)=> {
+app.get('/api/posts', (req, res, next) => {
 
     Post.find().then(documents => {
         res.status(200).json({
@@ -45,6 +46,12 @@ app.get('/api/posts', (req, res, next)=> {
     });
     
     
+ });
+
+ app.delete('/api/posts/:id', (req, res, next) => {
+    Post.deleteOne({ _id: req.params.id }).then((result) => {
+        res.status(200).json({ message: 'Post deleted!' });
+    });
  });
 
  module.exports = app;
