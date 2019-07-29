@@ -8,6 +8,7 @@ import { AngularMaterialModule } from './shared-modules/angular.material.module'
 import { HeaderComponent } from './components/layouts/header/header.component';
 import { PostListComponent } from './components/posts/post-list/post.list.component';
 import { HttpClientModule } from '@angular/common/http';
+import { AppRoutingModule } from './app-routing.module';
 
 @NgModule({
   declarations: [
@@ -18,10 +19,11 @@ import { HttpClientModule } from '@angular/common/http';
   ],
   imports: [
     BrowserModule,
-    FormsModule,
+    AppRoutingModule,
     BrowserAnimationsModule,
+    HttpClientModule,
+    FormsModule,
     AngularMaterialModule,
-    HttpClientModule
   ],
   providers: [],
   bootstrap: [  AppComponent  ]
